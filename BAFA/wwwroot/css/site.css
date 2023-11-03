@@ -25,7 +25,7 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 .content {
@@ -74,7 +74,7 @@ a, .btn-link {
     }
 
 
-.sidebar{
+.sidebar {
     background-image: linear-gradient(to left top, blue, black, yellow, blue, black, yellow, blue, black, yellow, blue 25%, black, yellow) !important;
 }
 
@@ -90,3 +90,50 @@ a, .btn-link {
 .card-title {
     font-weight: bold;
 }
+
+    .card-title.blue {
+        position: relative;
+        padding: 0;
+        color: blue
+    }
+
+    .card-title.blue-margin {
+        margin: 1rem 0;
+        color: blue
+    }
+
+
+.card-text.bold {
+    font-weight: bold
+}
+
+.container-main {
+    position: relative;
+    padding: 0
+}
+
+    .container-main.tag {
+        position: absolute;
+        right: 0px;
+        background-color: white;
+        height: 100%;
+        width: 40%;
+        opacity: 0.7;
+    }
+
+    .container-main.tag-block {
+        margin: 2rem;
+        opacity: 0.9;
+    }
+
+    .container-main.card {
+        margin: 0;
+        padding: 0;
+        top: 20%;
+    }
+
+    .container-main.card-block {
+        margin: 0;
+        padding: 0;
+        top: 20%;
+    }
