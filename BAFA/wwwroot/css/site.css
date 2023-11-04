@@ -137,3 +137,17 @@ a, .btn-link {
         padding: 0;
         top: 20%;
     }
+
+.modal-message {
+    display: block;
+}
+.modal-message-background {
+    background: url(../images/bkg-image.png) no-repeat center center fixed;
+    border-style: inset;
+    border-width: 5px;
+    border-color: blue;
+}
+
+.modal-header {
+    background-color:white
+}

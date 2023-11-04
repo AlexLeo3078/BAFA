@@ -13,14 +13,16 @@
 					<h1 class="card-text card-text-bold">Be Active</h1>
 					<h1 class="card-text card-text-bold">Football</h1>
 					<h1 class="card-text card-text-bold">Academy</h1>
-					<a href="#" class="btn btn-primary">Contact us</a>
+					<button type="submit" class="btn btn-primary" onclick="@(() => _component.ShowModal())">
+						Contact us
+					</button>
 				</div>
 			</div>
 
 		</div>
 		<img src="images/main.jpeg" class="card-img-top" alt="...">
 	</div>
-	
+
 	<div class="container-main tag-block d-block d-lg-none">
 		<div class="container-main card-block text-center">
 			<div class="card-body">
@@ -28,13 +30,17 @@
 				<h1 class="card-text card-text-bold">Be Active</h1>
 				<h1 class="card-text card-text-bold">Football</h1>
 				<h1 class="card-text card-text-bold">Academy</h1>
-				<a href="#" class="btn btn-primary">Contact us</a>
+				<button type="submit" class="btn btn-primary" onclick="@(() => _component.ShowModal())">
+					Contact us
+				</button>
 			</div>
 		</div>
 
 	</div>
 
 </div>
+
+<Modal @ref="_component"></Modal>
 
 <div class="container">
 	<div class="row">
@@ -120,3 +126,7 @@
 		</div>
 	</div>
 </div>
+
+@code {
+	private Modal _component;
+}

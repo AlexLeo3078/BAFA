@@ -1,0 +1,85 @@
+﻿@using BAFA.Models
+@using System.Net.Mail
+@inject Email email
+
+@if (_showModal)
+{
+	<div class="modal modal-message" tabindex="-1" role="dialog" id="taskModal">
+		<div class="modal-dialog modal-message-background shadow-lg bg-white rounded" role="document">
+			<div class="modal-content modal-message-background">
+				<div class="modal-header">
+					<iconify-icon icon="line-md:emoji-smile-wink" style="color: cornflowerblue;" width="30"></iconify-icon>
+					<h5 class="modal-title">Contact us</h5>
+					<iconify-icon icon="line-md:emoji-smile-wink" style="color: cornflowerblue;" width="30"></iconify-icon>
+				</div>
+				<div class="modal-body">
+					<EditForm id="my-form-ref" Model="@email" OnValidSubmit="@HandleValidSubmit">
+
+						<!-- Name input -->
+						<div class="mb-3">
+							<label class="form-label" for="name">Name</label>
+							<input @bind="email.Name" class="form-control" id="name" type="text" placeholder="Name" required />
+						</div>
+
+						<!-- Email address input -->
+						<div class="mb-3">
+							<label class="form-label" for="emailAddress">Email Address</label>
+							<input @bind="email.EmailAddress" class="form-control" id="emailAddress" type="email" placeholder="Email Address" required />
+						</div>
+
+						<!-- Message input -->
+						<div class="mb-3">
+							<label class="form-label" for="message">Message</label>
+							<textarea @bind="email.Message" class="form-control" id="message" type="text" placeholder="Message" style="height: 10rem;" required></textarea>
+						</div>
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="button" class="btn btn-secondary" @onclick="CancelSubmit">Cancel</button>
+						</div>
+					</EditForm>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@code
+{
+	bool _showModal;
+
+	protected void HandleValidSubmit()
+	{
+		_showModal = false;
+		Console.WriteLine($"Handle valid submit {email.EmailAddress}");
+
+		//beactivefootballacademy-com.mail.protection.outlook.com
+
+		MailAddress to = new MailAddress(email.EmailAddress);
+		MailAddress from = new MailAddress("alessandroleo@hotmail.co.uk");
+		MailMessage message = new MailMessage(from, to);
+		message.Subject = "BAFA Enquiries.";
+		message.Body = $"{email.Message}";
+
+		SmtpClient client = new SmtpClient("smtp.office365.com");
+		client.Credentials = new System.Net.NetworkCredential("alessandroleo@hotmail.co.uk", "tI1GoVbjk2DfavL173RE");
+		client.EnableSsl = true;
+		Console.WriteLine("Sending an email message to {0} at {1} by using the SMTP host={2}.",
+			to.User, to.Host, client.Host);
+		client.Send(message);
+	}
+
+
+	public void ShowModal()
+	{
+		_showModal = true;
+		StateHasChanged();
+	}
+
+	private void CancelSubmit()
+	{
+		Console.WriteLine("CancelSubmit");
+		_showModal = false;
+		StateHasChanged();
+	}
+}
