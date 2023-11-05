@@ -141,6 +141,7 @@ a, .btn-link {
 .modal-message {
     display: block;
 }
+
 .modal-message-background {
     background: url(../images/bkg-image.png) no-repeat center center fixed;
     border-style: inset;
@@ -149,5 +150,43 @@ a, .btn-link {
 }
 
 .modal-header {
-    background-color:white
+    background-color: white
+}
+
+.registration {
+    background-color: white;
+    border-style: inset;
+    border-width: 2px;
+    border-color: blue;
+}
+
+.img-gallery {
+    height: 40vw;
+    object-fit: contain;
+}
+
+.carousel {
+    padding: 2rem;
+}
+
+.carousel-control-next-icon {
+    background-size: 4rem;
+    background-color: gray;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 54px;
+}
+
+.carousel-control-prev-icon {
+    background-size: 4rem;
+    background-color: gray;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 54px;
+}
+
+.gallery-container {
+    border-style: inset;
+    background-color: black;
+    width: 70%;
 }

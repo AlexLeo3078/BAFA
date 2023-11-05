@@ -51,21 +51,18 @@
 	protected void HandleValidSubmit()
 	{
 		_showModal = false;
-		Console.WriteLine($"Handle valid submit {email.EmailAddress}");
 
 		//beactivefootballacademy-com.mail.protection.outlook.com
 
 		MailAddress to = new MailAddress(email.EmailAddress);
 		MailAddress from = new MailAddress("alessandroleo@hotmail.co.uk");
 		MailMessage message = new MailMessage(from, to);
-		message.Subject = "BAFA Enquiries.";
+		message.Subject = "BAFA enquiries";
 		message.Body = $"{email.Message}";
 
 		SmtpClient client = new SmtpClient("smtp.office365.com");
 		client.Credentials = new System.Net.NetworkCredential("alessandroleo@hotmail.co.uk", "tI1GoVbjk2DfavL173RE");
 		client.EnableSsl = true;
-		Console.WriteLine("Sending an email message to {0} at {1} by using the SMTP host={2}.",
-			to.User, to.Host, client.Host);
 		client.Send(message);
 	}
 

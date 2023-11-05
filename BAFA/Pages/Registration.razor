@@ -1,0 +1,60 @@
+﻿@page "/registration"
+
+@using BAFA.Models
+@using System.Net.Mail
+@inject Email email
+
+<div class="content">
+
+	<div class="row">
+		<div class="col-sm-12 col-lg-6 offset-lg-2 registration">
+			<h4>Registration</h4>
+			<EditForm id="my-form-ref" Model="@email" OnValidSubmit="@HandleValidSubmit">
+
+				<!-- Name input -->
+				<div class="mb-3">
+					<label class="form-label" for="name">Name</label>
+					<input @bind="email.Name" class="form-control" id="name" type="text" placeholder="Name" required/>
+				</div>
+
+				<!-- Email address input -->
+				<div class="mb-3">
+					<label class="form-label" for="emailAddress">Email Address</label>
+					<input @bind="email.EmailAddress" class="form-control" id="emailAddress" type="email" placeholder="Email Address" required/>
+				</div>
+
+				<!-- Message input -->
+				<div class="mb-3">
+					<label class="form-label" for="message">Message</label>
+					<textarea @bind="email.Message" class="form-control" id="message" type="text" placeholder="Message" style="height: 10rem;" required></textarea>
+				</div>
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</EditForm>
+		</div>
+	</div>
+
+
+</div>
+
+
+@code
+{
+	protected void HandleValidSubmit()
+	{
+		//beactivefootballacademy-com.mail.protection.outlook.com
+
+		MailAddress to = new MailAddress(email.EmailAddress);
+		MailAddress from = new MailAddress("alessandroleo@hotmail.co.uk");
+		MailMessage message = new MailMessage(from, to);
+		message.Subject = "BAFA registration";
+		message.Body = $"{email.Message}";
+
+		SmtpClient client = new SmtpClient("smtp.office365.com");
+		client.Credentials = new System.Net.NetworkCredential("alessandroleo@hotmail.co.uk", "tI1GoVbjk2DfavL173RE");
+		client.EnableSsl = true;
+		client.Send(message);
+	}
+}
