@@ -1,0 +1,11 @@
+﻿@page "/buy"
+@using BAFA.Models
+@using BAFA.Services
+
+<PageTitle>Index</PageTitle>
+
+<ProductList Products="Products" DisplayBuyButton="true"></ProductList>
+
+@code {
+	public List<Product> Products { get; set; } = ProductProviderService.Products.ToList();
+}

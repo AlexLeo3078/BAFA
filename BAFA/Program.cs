@@ -1,6 +1,5 @@
 using BAFA.Models;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using BAFA.Services;
 
 namespace BAFA
 {
@@ -14,6 +13,8 @@ namespace BAFA
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSingleton<Email>();
+            builder.Services.AddScoped<CartService>();
+
 
 			var app = builder.Build();
 

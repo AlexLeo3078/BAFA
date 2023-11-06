@@ -1,0 +1,59 @@
+﻿@using BAFA.Models
+@using BAFA.Services
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject CartService CartService
+@inject ProtectedLocalStorage LocalStorage
+
+
+<div class="row album py-5">
+	<div class="col-6 container">
+
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+			@foreach (var product in Products)
+			{
+				<div class="col">
+					<div class="card shadow-sm">
+						<img width="100%" height="225" src="images/@product.Image" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">@product.Name</h5>
+							<p class="card-text">@product.Description</p>
+							<blockquote class="card-text">£@product.Price</blockquote>
+							@if (DisplayBuyButton)
+							{
+								<button class="btn btn-primary" type="button" @onclick="async () => await Buy(product.Id)">Buy</button>
+							}
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
+@code {
+	[EditorRequired]
+	[Parameter]
+	public List<Product> Products { get; set; } = new();
+	[Parameter]
+	public bool DisplayBuyButton { get; set; }
+
+	private async Task Buy(Guid productId)
+	{
+		string _localStorage = "MyLocalStorage";
+		var result = await LocalStorage.GetAsync<List<Product>>(_localStorage);
+
+		if (result.Value != null)
+		{
+			CartService.SelectedItems = result.Success ? result.Value : null;
+		}
+
+		CartService.AddProductToCart(productId);
+		await SaveToLocalStorageAsync(CartService.SelectedItems);
+	}
+
+	private async Task SaveToLocalStorageAsync(List<Product> products)
+	{
+		const string _localStorage = "MyLocalStorage";
+		await LocalStorage.SetAsync(_localStorage, products);
+	}
+}

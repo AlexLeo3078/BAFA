@@ -1,0 +1,52 @@
+﻿@page "/checkout"
+@using BAFA.Models
+@using BAFA.Services
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject CartService CartService
+@inject IJSRuntime JSRuntime
+@inject ProtectedLocalStorage LocalStorage
+
+@if (products != null)
+{
+	<h3>You have @CartService.SelectedItems.Count item(s) in cart:</h3>
+	<ProductList Products="@products"></ProductList>
+}
+<EditForm class="vstack gap-3" Model="CheckoutForm" OnValidSubmit="SubmitAsync">
+	<DataAnnotationsValidator></DataAnnotationsValidator>
+	<div>
+		<label class="form-label" for="name">Name:</label>
+		<InputText id="name" class="form-control" @bind-Value="CheckoutForm.Name"></InputText>
+		<ValidationMessage class="form-control" For="()=>CheckoutForm.Name"></ValidationMessage>
+	</div>
+
+	<div>
+		<label class="form-label" for="address">Address:</label>
+		<InputText id="address" class="form-control" @bind-Value="CheckoutForm.Address"></InputText>
+		<ValidationMessage class="form-control" For="()=>CheckoutForm.Address"></ValidationMessage>
+	</div>
+
+	<div>
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</div>
+</EditForm>
+
+@code {
+	public CheckoutForm CheckoutForm { get; set; } = new();
+	private List<Product> products;
+	private const string _localStorage = "MyLocalStorage";
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+		if (firstRender)
+		{
+			var result = await LocalStorage.GetAsync<List<Product>>(_localStorage);
+			products = result.Success ? result.Value : null;
+			StateHasChanged();
+		}
+    }
+
+	private async Task SubmitAsync()
+	{
+		await JSRuntime.InvokeVoidAsync("alert", $"Thank you {CheckoutForm.Name}, we will deliver to {CheckoutForm.Address}.");
+	}
+}

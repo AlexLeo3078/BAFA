@@ -188,5 +188,5 @@ a, .btn-link {
 .gallery-container {
     border-style: inset;
     background-color: black;
-    width: 70%;
+    margin:5rem;
 }
